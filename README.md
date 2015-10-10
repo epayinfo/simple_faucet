@@ -4,6 +4,8 @@ Simple faucet Ready out of box for ePay.info
 #Installation
 Follow steps in install.php and you are good to go.
 
+Make sure folder permission of folder ads and all files under it  is set to 777
+
 
 #Features
 Ready-to-use script
