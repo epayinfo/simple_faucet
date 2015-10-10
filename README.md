@@ -32,5 +32,7 @@ cURL > 7.36
 
 PHP Mcrypt extension (recommended)
 
+PHP SOAP client extension (recommended)
+
 
 Powered by Smarty and PHP
