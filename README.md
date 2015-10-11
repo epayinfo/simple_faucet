@@ -12,6 +12,8 @@ templates_c => 777
 
 configs => 777
 
+"epay_referral.php" is required for reporting user's referrals to ePay.info
+
 #Features
 Ready-to-use script
 
