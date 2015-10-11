@@ -86,8 +86,10 @@ if(isset($_POST['with'])){
 	$smarty->assign('ads_main_top',$ads_main_top);
 	$smarty->assign('ads_main_bottom',$ads_main_bottom);
 	$smarty->assign('ref_percent',$ref_percent);
-	$smarty->assign('prize_min',$prize[0]);
-	$smarty->assign('prize_max',$prize[ count($prize)-1 ]);
+	$db->queryres("select prize from tbl_prize order by prize asc limit 1 ");
+	$smarty->assign('prize_min',$db->res['prize']);
+	$db->queryres("select prize from tbl_prize order by prize desc limit 1 ");
+	$smarty->assign('prize_max',$db->res['prize']);
 	$smarty->assign('globalboxalert',$globalboxalert);
 	
 	
