@@ -18,8 +18,8 @@ require_once "configs/configs.php";
 require_once "configs/prizes.php";
 /*** Includes ***/
 $now=time();
-//$apiurl='http://api.epay.info/?wsdl';
-$apiurl='http://localhost:81/epay/api/?wsdl';
+$apiurl='http://api.epay.info/?wsdl';
+//$apiurl='http://localhost:81/epay/api/?wsdl';
 
 /***** ADS ****/
 $ads_left=file_get_contents('ads/left.php');
