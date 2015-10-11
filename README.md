@@ -41,5 +41,15 @@ PHP Mcrypt extension (Must Have)
 
 PHP SOAP client extension (Must Have)
 
+#Proposal requirement
+Nginx
+
+PHP-FPM
+
+MariaDb
+
+Cloudflare for protection
+
+
 
 Powered by Smarty and PHP
