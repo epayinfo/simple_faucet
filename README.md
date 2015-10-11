@@ -1,11 +1,16 @@
-# simple_faucet
+# Simple ePay.info Faucet
 Simple faucet Ready out of box for ePay.info
 
 #Installation
 Follow steps in install.php and you are good to go.
 
-Make sure folder permission of folder ads and all files under it  is set to 777
+Make sure of the following permissions:
 
+ads => 777
+
+templates_c => 777
+
+configs => 777
 
 #Features
 Ready-to-use script
@@ -30,9 +35,9 @@ MySQL >= 5 (with Mysqli support)
 
 cURL > 7.36
 
-PHP Mcrypt extension (recommended)
+PHP Mcrypt extension (Must Have)
 
-PHP SOAP client extension (recommended)
+PHP SOAP client extension (Must Have)
 
 
 Powered by Smarty and PHP
