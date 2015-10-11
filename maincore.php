@@ -20,7 +20,14 @@ require_once "configs/prizes.php";
 $now=time();
 $apiurl='http://api.epay.info/?wsdl';
 //$apiurl='http://localhost:81/epay/api/?wsdl';
-
+/* Use if you are not using cloudflare
+$ipAddress = $_SERVER['REMOTE_ADDR'];
+if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+    $ipAddress = array_pop(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
+}
+$ip=sprintf("%u",ip2long($ipAddress));
+*/
+$ip=sprintf("%u",ip2long($_SERVER['HTTP_CF_CONNECTING_IP'])); // Only if using cloudflare
 /***** ADS ****/
 $ads_left=file_get_contents('ads/left.php');
 $ads_main_top=file_get_contents('ads/top.php');
