@@ -27,7 +27,9 @@ if(isset($_POST['with'])){
 			$_SESSION['user']['succ']=$prize;
 			if($_SESSION['user']['refid']){ 
 				$refearn=floor(($_SESSION['prize']*$ref_percent)/100);
-				$db2->query("update tbl_user set ref_pending=ref_pending+'$refearn' where user_id='".$_SESSION['user']['refid']."'");
+				$db2->queryres("select wallet from tbl_user where user_id='".$_SESSION['user']['refid']."'");
+				$response = $client->send($apicode,$db2->res['wallet'],$refearn,2,'Referral earnings.');
+
 			}
 			unset($_SESSION['error']);
 			unset($_SESSION['prize']);
