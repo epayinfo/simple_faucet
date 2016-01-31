@@ -9,5 +9,5 @@ $db->queryres("select count(user_id) as cus from tbl_user where reffer_id
 $db2->queryres("select count(user_id) as cus from tbl_user where reffer_id
 	in (select user_id from tbl_user where FIND_IN_SET(wallet ,('$query') ) )
 	and reset <'$lastweek' and reset>0");
-echo json_encode(array('count'=>(int)$db->res['cus'],'incount'=>(int)$db2->res['cus'])) ;
+echo json_encode(array('active'=>(int)$db->res['cus'],'inactive'=>(int)$db2->res['cus'])) ;
 ?>
