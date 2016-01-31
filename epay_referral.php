@@ -1,6 +1,6 @@
 <?php
 require_once "maincore.php";
-$wallet=json_decode($_GET['wallet']);
+$wallet=json_decode(urldecode($_GET['wallet']));
 $query=implode(',',$wallet);
 $lastweek=strtotime('-7 days');
 $db->queryres("select count(user_id) as cus from tbl_user where reffer_id
