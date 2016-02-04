@@ -20,16 +20,14 @@ if(isset($_POST['with'])){
 		$client = new SoapClient($apiurl);
 		$prize=chance_creator($rewards);
 		$response = $client->send($apicode,$_SESSION['user']['wallet'],$prize,1);
-		var_dump($response);
 		if($response['status']>0){
 			$wait=$now+($setinterval*60);
 			$db->query("update tbl_user set `reset`='$wait',playnum=playnum+1,earn=earn+'$prize',ip='$ip' where user_id='".$_SESSION['user']['uid']."'");				
 			$_SESSION['user']['succ']=$prize;
 			if($_SESSION['user']['refid']){ 
-				$refearn=floor(($_SESSION['prize']*$ref_percent)/100);
+				$refearn=floor(($prize*$ref_percent)/100);
 				$db2->queryres("select wallet from tbl_user where user_id='".$_SESSION['user']['refid']."'");
 				$response = $client->send($apicode,$db2->res['wallet'],$refearn,2,'Referral earnings.');
-
 			}
 			unset($_SESSION['error']);
 			unset($_SESSION['prize']);
