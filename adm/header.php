@@ -3,8 +3,10 @@ session_start();
 ob_start();
 if(!isset($_SESSION['admin_loged']) && basename($_SERVER['PHP_SELF'])!='login.php'){
 	header( 'Location: login.php');
+	die();
 }else if(isset($_SESSION['admin_loged']) && basename($_SERVER['PHP_SELF'])=='login.php'){
 	header( 'Location: index.php');
+	die();
 }
 
 require_once "../configs/dbinfo.php";
