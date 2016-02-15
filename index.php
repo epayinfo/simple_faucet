@@ -15,7 +15,7 @@ if(isset($_POST['with'])){
 	}
 	
 	$solvemedia_response=solvemedia_check_answer($verkey,$_SERVER["REMOTE_ADDR"],$_POST['adcopy_challenge'],$_POST['adcopy_response'],$hashkey);
-	if( $solvemedia_response->is_valid ){
+	if( $solvemedia_response->is_valid){
 		global $apiurl,$apicode;
 		$client = new SoapClient($apiurl);
 		$prize=chance_creator($rewards);
@@ -28,9 +28,9 @@ if(isset($_POST['with'])){
 				$refearn=floor(($prize*$ref_percent)/100);
 				$db2->queryres("select wallet from tbl_user where user_id='".$_SESSION['user']['refid']."'");
 				$response = $client->send($apicode,$db2->res['wallet'],$refearn,2,'Referral earnings.');
+				var_dump($response);
 			}
 			unset($_SESSION['error']);
-			unset($_SESSION['prize']);
 		}else
 			$_SESSION['error']['epay']=true;
 			$amount_bb=$client->balance($apicode,$_SESSION['user']['wallet']);
@@ -51,10 +51,6 @@ if(isset($_POST['with'])){
 		
 	}
 		
-	 	
-		
-		
-		
 	if($_SESSION['error']['inproccess'])
 		$smarty->assign('inproccess',1);
 		
@@ -73,7 +69,8 @@ if(isset($_POST['with'])){
 		
 	unset($_SESSION['error']);
 
-		
+
+	$smarty->assign('setinterval',$setinterval);
 	$smarty->assign('ads_1',$ads_1);
 	$smarty->assign('captcha_box',solvemedia_get_html($privkey));
 	$smarty->assign('ads_2',$ads_2);

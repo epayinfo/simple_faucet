@@ -5,7 +5,7 @@
 
     
     <div style="margin-top: 12px;"></div>
-  <font size="5">Every 10 minutes you can earn between <span style="color:#428bca">{$prize_min}</span> and <span style="color:#428bca">{$prize_max}</span> satoshi.<br> <strong>Your earnings goes directly to your <a href="http://epay.info/" target="_blank">ePay</a> account</strong><br>
+  <font size="5">Every {$setinterval} minutes you can earn between <span style="color:#428bca">{$prize_min}</span> and <span style="color:#428bca">{$prize_max}</span> satoshi.<br> <strong>Your earnings goes directly to your <a href="http://epay.info/" target="_blank">ePay</a> account</strong><br>
     
     
   </font>

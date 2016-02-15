@@ -176,16 +176,9 @@ END;
    
    Your installation has just been completed.
    
-   Make sure that you have the following cron job added so you can send the referral credits to ePay.info
-   
    <br>
    
 <center>
-  <code> */30 * * * * cd <?php echo $_SERVER['DOCUMENT_ROOT'],'/'?>; php cron.php </code>
-  
-  <br>
-
-  <br>
 
   This is your administartion passphare:<br><br>
 
