@@ -1,16 +1,11 @@
 <?php
 require_once "header.php";
 if(isset($_POST['save'])){
-	
-	
-//  'analytic' => string 'alert('ttest');' (length=15)
-
 
 $apicode=$_POST['api'];
 $privkey=$_POST['spk'];
 $verkey=$_POST['svk'];
 $hashkey=$_POST['shk'];
-$reflimit=$_POST['ref_earn'];
 $ref_percent=$_POST['ref_percent'];
 $sitetitle=$_POST['title'];
 $domainname=$_POST['domain'];
@@ -24,7 +19,6 @@ $content = <<<END
 \$privkey='$privkey';
 \$verkey='$verkey';
 \$hashkey='$hashkey';
-\$reflimit='$reflimit';
 \$ref_percent='$ref_percent';
 \$sitetitle='$sitetitle';
 \$domainname='$domainname';
@@ -99,10 +93,7 @@ END;
     <th>Referral Percent</th>
     <td><input type="text" name="ref_percent" id="ref_percent" class="text" value="<?php echo $ref_percent; ?>"/></td>
   </tr>
-  <tr>
-    <th><p>Minimum referral earning to send</p></th>
-    <td><input type="text" name="ref_earn" id="ref_earn" class="text" value="<?php echo $reflimit; ?>"/>Satoshi</td>
-  </tr>
+
   <tr>
     <td colspan="2" align="center"><input class="button" type="submit" name="save" id="button" value="Save" /></td>
   </tr>
