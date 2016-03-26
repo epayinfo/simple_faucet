@@ -23,6 +23,12 @@ if(isset($_POST['save'])){
 	fwrite($fp,$_POST['ad2']);
 	fclose($fp);
 
+	$fp = fopen('../ads/ad3.php',"w");
+	fwrite($fp,$_POST['ad3']);
+	fclose($fp);
+
+
+
 	$fp = fopen('../ads/bottom.php',"w");
 	fwrite($fp,$_POST['bottom']);
 	fclose($fp);
@@ -61,6 +67,14 @@ if(isset($_POST['save'])){
     <th>Ad2</th>
     <td><textarea name="ad2" class="text" rows="10"><?php echo file_get_contents('../ads/ad2.php');?></textarea></td>
   </tr>
+  
+  <tr>
+    <th>Ad3</th>
+    <td><textarea name="ad3" class="text" rows="10"><?php echo file_get_contents('../ads/ad3.php');?></textarea></td>
+  </tr>
+  
+  
+  
   <tr>
     <th>Bottom</th>
     <td><textarea name="bottom" class="text" rows="10"><?php echo file_get_contents('../ads/bottom.php');?></textarea></td>
