@@ -15,7 +15,6 @@ ob_start();
 	<link href="//cdn.epay.info/css/flipclock.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="templates/style/css/style.css">
 	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="templates/style/javascript/analytic.js"></script>
 </head>
 <body>
 <div class="container" style="padding-top:50px;">
@@ -113,6 +112,18 @@ END;
   <div class="panel-body">
    
    Below you should enter your database connection details. If you’re not sure about these, contact your host.
+   
+   
+   
+   
+<?php if(isset($_SESSION['error']['db'])){ ?>
+
+<div class="alert alert-danger">
+Unable to connect to database.
+
+</div>
+<?php unset($_SESSION['error']); } ?>   
+   
    
    
    <div class="form-group">
