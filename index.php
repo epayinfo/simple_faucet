@@ -1,6 +1,5 @@
 <?php 
-// test
-require_once "maincore.php"; require_once "includes/captcha.ws.php";
+require_once "maincore.php";
 if(isset($_POST['with'])){
 	if($_POST['wallet']==''){ 
 		unset($_SESSION['wallet']);
