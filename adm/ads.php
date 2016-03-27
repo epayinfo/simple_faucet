@@ -1,8 +1,6 @@
 <?php
 require_once "header.php";
 if(isset($_POST['save'])){
-	
-
 	$fp = fopen('../ads/left.php',"w");
 	fwrite($fp,$_POST['left']);
 	fclose($fp);
@@ -27,61 +25,51 @@ if(isset($_POST['save'])){
 	fwrite($fp,$_POST['ad3']);
 	fclose($fp);
 
-
-
 	$fp = fopen('../ads/bottom.php',"w");
 	fwrite($fp,$_POST['bottom']);
 	fclose($fp);
-
-
-
-
-
 	header('Location: ads.php');
 }else{
 ?>
-
 <form method="post">
-<table width="100%" border="0" cellspacing="3" cellpadding="1">
-  <tr>
-    <th width="9%">Left</th>
-    <td width="91%">
-      <textarea name="left" class="text" rows="10"><?php echo file_get_contents('../ads/left.php');?></textarea><br></td>
-  </tr>
-  <tr>
-    <th>Top</th>
-    <td>
-      <textarea name="top" class="text" rows="10"><?php echo file_get_contents('../ads/top.php');?></textarea>
-      </td>
-  </tr>
-  <tr>
-    <th>Right</th>
-    <td><textarea name="right" class="text" rows="10"><?php echo file_get_contents('../ads/right.php');?></textarea>
-      </td>
-  </tr>
-  <tr>
-    <th>Ad1</th>
-    <td><textarea name="ad1" class="text" rows="10"><?php echo file_get_contents('../ads/ad1.php');?></textarea></td>
-  </tr>
-  <tr>
-    <th>Ad2</th>
-    <td><textarea name="ad2" class="text" rows="10"><?php echo file_get_contents('../ads/ad2.php');?></textarea></td>
-  </tr>
-  
-  <tr>
-    <th>Ad3</th>
-    <td><textarea name="ad3" class="text" rows="10"><?php echo file_get_contents('../ads/ad3.php');?></textarea></td>
-  </tr>
-  
-  
-  
-  <tr>
-    <th>Bottom</th>
-    <td><textarea name="bottom" class="text" rows="10"><?php echo file_get_contents('../ads/bottom.php');?></textarea></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="center"><input class="button" type="submit" name="save" id="button" value="Save" /></td>
-  </tr>
-</table>
-</form>
+	<Div class="row">
+		<div class="form-group">
+			<label for="exampleInputEmail1">Left</label>
+			<textarea name="left" class="form-control" rows="10"><?php echo file_get_contents('../ads/left.php');?></textarea>
+		</div>
+	
+		<div class="form-group">
+			<label for="exampleInputEmail1">Top</label>
+			<textarea name="top" class="form-control" rows="10"><?php echo file_get_contents('../ads/top.php');?></textarea>
+		</div>
+	
+	
+		<div class="form-group">
+			<label for="exampleInputEmail1">Right</label>
+			<textarea name="right" class="form-control" rows="10"><?php echo file_get_contents('../ads/right.php');?></textarea>
+		</div>
+	
+		<div class="form-group">
+			<label for="exampleInputEmail1">Ad1</label>
+			<textarea name="ad1" class="form-control" rows="10"><?php echo file_get_contents('../ads/ad1.php');?></textarea>
+		</div>
+	
+		<div class="form-group">
+			<label for="exampleInputEmail1">Ad2</label>
+			<textarea name="ad2" class="form-control" rows="10"><?php echo file_get_contents('../ads/ad2.php');?></textarea>
+		</div>
+	
+		<div class="form-group">
+			<label for="exampleInputEmail1">Ad3</label>
+			<textarea name="ad3" class="form-control" rows="10"><?php echo file_get_contents('../ads/ad3.php');?></textarea>
+		</div>
+	
+		<div class="form-group">
+			<label for="exampleInputEmail1">Bottom</label>
+			<textarea name="bottom" class="form-control" rows="10"><?php echo file_get_contents('../ads/bottom.php');?></textarea>
+		</div>
+		<button type="submit" name="save" class="btn btn-success col-md-3 col-md-push-4">Save</button>
+	</Div>
+</form><br>
+
 <?php  }include("footer.php") ?>

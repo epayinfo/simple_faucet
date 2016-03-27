@@ -9,16 +9,16 @@ if(isset($_GET['a'])&&$_GET['a']=='delete'){
 
 
 
-<table width="100%" border="0" class="tbladd" dir="rtl" id="matrix">
-  <tr align="center">
-                    <td width="3%"></td>
-                    <td width="51%">Referred</td>
-                    <td width="44%">wallet</td>
-                    <td width="2%">#</td>
-                  </tr>
-                  <tbody>
+<table class="table table-hover table-striped">
+	<tr align="center">
+		<td width="2%">#</td>
+		<td width="44%">wallet</td>
+		<td width="51%">Referred</td>
+		<td width="3%"></td> 
+	</tr>
+<tbody>
 <?php
-$perpage=40;
+$perpage=50;
 if (!isset($_GET['p']))
 	$screen = 0;
 else
@@ -29,28 +29,24 @@ $i=($db->rownum())-$start;
 	$db->query("select * from tbl_user order by reset desc limit ".$start.",".$perpage);
 	while($res=$db->fetchArray()){
 ?>
-             <tr align="center" >
-                    <td width="3%">
-                    <a href="user.php?a=delete&id=<?php echo $res['user_id']?>">Delete</a> 
-                    </td>
-               
-             <td width="51%"><?php
-$db2->Queryres("select count(user_id) as ucount from tbl_user where reffer_id='".$db->res['user_id']."' ");
-echo number_format($db2->res['ucount']);
-	
-?>
-			   </td>
-                    <td width="44%"><?php echo $res['wallet']; ?></td>
-                    <td width="2%"><?php echo $i; $i--;?></td>
-                    
-                  </tr>
-           <?php  } ?>
-           </tbody>
+	<tr align="center" >
+		<td width="2%"><?php echo $i; $i--;?></td>
+		<td width="44%"><?php echo $res['wallet']; ?></td>     
+		<td width="51%">
+		<?php
+			$db2->Queryres("select count(user_id) as ucount from tbl_user where reffer_id='".$db->res['user_id']."' ");
+			echo number_format($db2->res['ucount']);
+		?>
+		</td>
+		<td width="3%"><a href="user.php?a=delete&id=<?php echo $res['user_id']?>">Delete</a></td>         
+	</tr>
+<?php  } ?>
+</tbody>
 </table>
 
 
 
-<div dir="rtl" style="margin-top:10px">
+<div class="row" style="margin-top:10px">
   <?php
 $db->query("select * from tbl_user");
 $n=$db->rownum();

