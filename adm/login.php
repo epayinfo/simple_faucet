@@ -2,7 +2,7 @@
 if(isset($_POST['login']) ){
 	$ss=new SystemComponent;
 	$info=$ss->getSetting();
-	if($info['adminpass']==hash('SHA256',$_POST['pass']) || 1){
+	if($info['adminpass']==hash('SHA256',$_POST['pass'])){
 		$_SESSION['admin_loged']=true;
 		header('Location: index.php');
 		die();
