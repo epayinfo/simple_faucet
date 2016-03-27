@@ -53,13 +53,13 @@ function convertToBTCFromSatoshi($value){
 function create_user($wallet,$reffer_id=NULL){ 
 	global $db;
 	if($reffer_id){
-		$prepare=$db->mysqli->prepare("insert into tbl_user (wallet,reffer_id) values (?,?) ");
+		$prepare=$db->mysqli->prepare("insert into tbl_user (wallet,reffer_id,playnum,reset) values (?,?,0,0) ");
 		$prepare->bind_param('si',$wallet,$reffer_id);
 		$prepare->execute();
 		$uid=$prepare->insert_id;
 		$prepare->close();
 	}else{
-		$prepare=$db->mysqli->prepare("insert into tbl_user (wallet) values (?) ");
+		$prepare=$db->mysqli->prepare("insert into tbl_user (wallet,playnum,reset) values (?,0,0) ");
 		$prepare->bind_param('s',$wallet);
 		$prepare->execute();
 		$uid=$prepare->insert_id;
@@ -93,7 +93,7 @@ function User_id($wallet){
 			$uid=create_user($wallet);
 		}
 	}
-	return array('uid'=>$uid,'refid'=>$rid,'plnum'=>$plnum);
+	return array('uid'=>$uid,'refid'=>$rid);
 }
 
 
