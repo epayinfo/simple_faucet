@@ -4,7 +4,7 @@ Simple faucet Ready out of box for ePay.info
 #Features
 Ready-to-use script
 
-Captcha support (SolveMedia)
+Multi Captcha support (Captchaws,SolveMedia,recaptcha)
 
 Private admin area
 
@@ -13,6 +13,13 @@ Minimal configuration needed
 Support theming (Smarty-powered)
 
 Clean and lightweight
+
+Adblocker detection
+
+Claim button timer
+
+Multi currency
+
 
 
 # Reporting issues
