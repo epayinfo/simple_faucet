@@ -14,12 +14,19 @@ if(isset($_POST['with'])){
 	}
 	
 	
+	if($solvemedia_active)
+		$solvemedia_response=solvemedia_check_answer($verkey,$_SERVER["REMOTE_ADDR"],$_POST['adcopy_challenge'],$_POST['adcopy_response'],$hashkey);
 	
-	$solvemedia_response=solvemedia_check_answer($verkey,$_SERVER["REMOTE_ADDR"],$_POST['adcopy_challenge'],$_POST['adcopy_response'],$hashkey);
-	$captchaws= new captcha_ws;
-	$reCaptcha = new ReCaptcha($recap_secret);
-	if ($_POST["g-recaptcha-response"])
-		$resp = $reCaptcha->verifyResponse($_SERVER["REMOTE_ADDR"],$_POST["g-recaptcha-response"]);
+	if($captcha_ws_active)
+		$captchaws= new captcha_ws;
+	
+	
+	if($recap_active){
+		$reCaptcha = new ReCaptcha($recap_secret);
+		if ($_POST["g-recaptcha-response"])
+			$resp = $reCaptcha->verifyResponse($_SERVER["REMOTE_ADDR"],$_POST["g-recaptcha-response"]);
+	}
+	
 	
 	if( 
 		( $captcha_ws_active && $captchaws->verify($_POST['adcopy_response'],$_POST['adcopy_challenge'],$_POST['adcopy_key'])  ) ||
