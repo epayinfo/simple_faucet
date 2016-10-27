@@ -31,7 +31,7 @@ We aim to improve the quality of this script over time, so remember to check the
 Begin installing by clicking on the next step.
 </div>
 <div class="panel-footer">
-<a href="../simple_1_faucet/?step=2" class="btn btn-success pull-right">Next</a>
+<a href="?step=2" class="btn btn-success pull-right">Next</a>
 <div class="clearfix"></div>
 </div>
 </div>
