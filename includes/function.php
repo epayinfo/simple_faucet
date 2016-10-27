@@ -97,5 +97,38 @@ function User_id($wallet){
 }
 
 
+function check_wallet(){
+	
+	
+	
+	if($_POST['wallet']==''){ 
+		unset($_SESSION['wallet']);
+		$_SESSION['error']['nowallet']=true;
+		header('Location:index.php');
+		die();
+	}else{
+		$_SESSION['user']['wallet']=trim($_POST['wallet']);
+		$user=User_id($_SESSION['user']['wallet']);
+		$_SESSION['user']['uid']=$user['uid'];
+		$_SESSION['user']['refid']=$user['refid'];
+	}
+	
+	
+	
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
 
 ?>
