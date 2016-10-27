@@ -36,8 +36,16 @@ Begin installing by clicking on the next step.
 </div>
 </div>
 <?php }elseif($_GET['step']==2){ 
-if(isset($_POST['dbname'])){
 
+chmod( 'templates_c', 0777 );
+
+chmod( 'ads/', 0777 );
+
+chmod( 'configs/dbinfo.php', 0666  );
+chmod( 'configs/prizes.php', 0666  );
+chmod( 'configs/configs.php', 0666  );
+
+if(isset($_POST['dbname'])){
 class SystemComponent{
 	private $settings;
 	function getSetting(){
@@ -81,8 +89,6 @@ class SystemComponent{
 	}
 }
 END;
-	chmod( 'templates_c', 0777 );
-	chmod( 'configs/dbinfo.php', 0666 );
 	$fp = fopen('configs/dbinfo.php',"w");
 	fwrite($fp,$content);
 	fclose($fp);
@@ -95,6 +101,7 @@ END;
 		$db->query($q);
 		
 	fclose($sql);
+	
 	header('Location: install.php?step=3');
 	die();
 }else{
@@ -177,61 +184,26 @@ Unable to connect to database.
 @unlink('install.sql');
 
 ?>
-
-
 <div class="panel panel-primary">
-
-
   <div class="panel-heading">Faucet Installer - Finish</div>
   <div class="panel-body">
-   
    Your installation has just been completed.
-   
    <br>
-   
 <center>
-
   This is your administartion passphare:<br><br>
-
   <strong><code style="font-size:24px"><?php echo $_SESSION['info']['admin'];?></code></strong>
   <br><br>
-
   <div class="col-md-4 col-md-push-4">
   <a href="adm" class="btn btn-success btn-block">Go to Administartion</a>
-
-  
   </div>
-  
-  
-  
-  
-  
 </center>
    <br>
-
    <div class="clearfix"></div>
-  
 <strong>Make sure install.php and install.sql are deleted from you host.<br>
-Admin passpharse will not be shown again even if you refresh this page. Save it somewhere safe.  
-</strong>  
-  
-  
-   
+Admin passpharse will not be shown again even if you refresh this page. Save it somewhere safe.</strong>     
 </div>
 </div>
-
-
-
-
-
-
 <?php session_destroy(); } ?>
-
-
-
-
-
-
 </div>
 </body>
 </html>
