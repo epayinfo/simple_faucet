@@ -16,31 +16,54 @@ $desc=$_POST['desc'];
 $captcha_ws_key=$_POST['captcha_ws_key'];
 $recap_site=$_POST['recap_site'];
 $recap_secret=$_POST['recap_secret'];
+
+$anti_bot=$_POST['anti_bot'];
+
+if( $_POST['anti_bot']>5 ){
+	$anti_bot=5;	
+}
+
+
+if( $_POST['anti_bot']<3 ){
+	$anti_bot=3;	
+}
+
+if( $_POST['anti_bot']==0 ){
+	$anti_bot=0;	
+}
+
+
+$faucet_steps=$_POST['faucet_steps'];
+
+
+
+
 if(isset($_POST['adb']))$adb=1;else$adb=0;
 if(isset($_POST['captcha_ws_active']))$captcha_ws_active=1;else$captcha_ws_active=0;
 if(isset($_POST['solvemedia_active']))$solvemedia_active=1;else$solvemedia_active=0;
 if(isset($_POST['recap_active']))$recap_active=1;else$recap_active=0;
 $content = <<<END
 <?php
-\$adb='$adb';
-\$bwait='$bwait';
-\$currency='$currency';
+\$faucet_steps=$faucet_steps;
+\$adb=$adb;
+\$bwait=$bwait;
+\$currency=$currency;
 \$apicode='$apicode';
 \$privkey='$privkey';
 \$verkey='$verkey';
 \$hashkey='$hashkey';
-\$ref_percent='$ref_percent';
+\$ref_percent=$ref_percent;
 \$sitetitle='$sitetitle';
 \$domainname='$domainname';
-\$setinterval='$setinterval';
+\$setinterval=$setinterval;
 \$keywords='$keywords';
 \$desc='$desc';
-\$captcha_ws_active='$captcha_ws_active';
-\$captcha_ws_key='$captcha_ws_key';
 \$solvemedia_active='$solvemedia_active';
 \$recap_active='$recap_active';
 \$recap_site='$recap_site';
 \$recap_secret='$recap_secret';
+\$anti_bot=$anti_bot;
+
 END;
 	$fp = fopen('../configs/configs.php',"w");
 	fwrite($fp,$content);
@@ -54,6 +77,10 @@ END;
 }else{
 	require_once "../configs/configs.php";
 ?>
+<style>
+.tab-pane{padding-top:10px;}
+
+</style>
 <form method="post">
 <Div class="row">
 	<ul class="nav nav-tabs" role="tablist">
@@ -61,7 +88,6 @@ END;
 		<li role="presentation"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
 		
 		
-		<li role="presentation"><a href="#captcahws" aria-controls="captcahws" role="tab" data-toggle="tab">Captcha.ws</a></li>
 		<li role="presentation"><a href="#solvemedia" aria-controls="solvemedia" role="tab" data-toggle="tab">Solvemedia</a></li>
 		<li role="presentation"><a href="#recaptcha" aria-controls="recaptcha" role="tab" data-toggle="tab">Recaptcha</a></li>
 		
@@ -69,46 +95,95 @@ END;
 		
 	  </ul>
 	<div class="tab-content">
-		<div role="tabpanel" class="tab-pane active" id="faucet">
+		<div role="tabpanel" class="tab-pane active fade in" id="faucet">
 	  
-	<div class="form-group">
-		<label class="control-label">Currency</label>
-		<select class="form-control" name="currency">
-			<option <?php if($currency==1) echo 'selected'; ?> value="1" >Bitcoin</option>
-			<option <?php if($currency==3) echo 'selected'; ?> value="3" >US Dollar</option>
-			<option <?php if($currency==4) echo 'selected'; ?> value="4" >Dogecoin</option>
-			<option <?php if($currency==5) echo 'selected'; ?> value="5" >Litecoin</option>
-			<option <?php if($currency==6) echo 'selected'; ?> value="6">Ethereum</option>
-		</select>
-	</div>
+	  
+	  
+	<Div class="row">
+	
+		<div class="col-md-6">
+	  
+			<div class="form-group">
+				<label class="control-label">Currency</label>
+				<select class="form-control" name="currency">
+					<option <?php if($currency==1) echo 'selected'; ?> value="1" >Bitcoin</option>
+					<option <?php if($currency==4) echo 'selected'; ?> value="4" >Dogecoin</option>
+					<option <?php if($currency==5) echo 'selected'; ?> value="5" >Litecoin</option>
+					<option <?php if($currency==6) echo 'selected'; ?> value="6">Ethereum</option>
+				</select>
+			</div>
+		</div>
+	
+		<div class="col-md-6">
+	  
+	  
+			<div class="form-group">
+				<label class="control-label">Faucet Type</label>
+				<select class="form-control" name="faucet_steps">
+					<option <?php if($faucet_steps==1) echo 'selected'; ?> value="1" >One Step (Address, Captcha in one step)</option>
+					<option <?php if($faucet_steps==2) echo 'selected'; ?> value="2" >Two Step (Address then captcha in two step) </option>
+				</select>
+			</div>
+	  
+	  
+	  
+	  
+	  
+	  
+		</div>
+	
+	</Div>
 	  
 	  
 	<div class="form-group">
 		<label for="exampleInputEmail1">ePay API</label>
-		<input type="text" name="api" class="form-control" value="<?php echo $apicode; ?>"/>
+		<input type="text" name="api" class="form-control" value="<?php echo $apicode; ?>" placeholder="Your ePay.info API key"/>
 	</div>
 	
+	<Div class="row">
 	
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="exampleInputEmail1">Claim Button Waiting time (Seconds)</label>
+				<input type="number" name="bwait" id="bwait" class="form-control" value="<?php echo $bwait; ?>"/>
+				<small>Enter 0 to deactivate</small>
+			</div>
+		</div>
 	
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="exampleInputEmail1">Faucet Timer (Minutes)</label>
+				<input type="number" name="interval" id="interval" class="form-control" value="<?php echo $setinterval; ?>"/>
+			</div>
+		</div>
 	
+	</Div>
+	<Div class="row">
 	
-	<div class="form-group">
-		<label for="exampleInputEmail1">Button Wait (Seconds)</label>
-		<input type="number" name="bwait" id="bwait" class="form-control" value="<?php echo $bwait; ?>"/>
-	</div>
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="exampleInputEmail1">Referral Percent (%)</label>
+				<input type="number" name="ref_percent" id="ref_percent" class="form-control" value="<?php echo $ref_percent; ?>"/>
+				<small>Enter 0 to deactivate</small>
+			</div>
+	  
+		</div>
 	
-	
-	
-	<div class="form-group">
-		<label for="exampleInputEmail1">Faucet Intervals (Minutes)</label>
-		<input type="number" name="interval" id="interval" class="form-control" value="<?php echo $setinterval; ?>"/>
-	</div>
-	
-	
-	<div class="form-group">
-		<label for="exampleInputEmail1">Referral Percent (%)</label>
-		<input type="number" name="ref_percent" id="ref_percent" class="form-control" value="<?php echo $ref_percent; ?>"/>
-	</div>
+		<div class="col-md-6">
+	  
+			<div class="form-group">
+				<label for="exampleInputEmail1">Number of Anti-Bot links</label>
+				<input type="number" name="anti_bot" id="ref_percent" class="form-control" value="<?php echo $anti_bot; ?>"  />
+				<small>Enter 0 to deactivate.<br>Max 5 links</small>
+			</div>
+		</div>
+	</Div>
+	  
+	  
+	  
+	  
+	  
+	  
 	  
 	  
 	  <div class="checkbox">
@@ -120,8 +195,15 @@ END;
 	  
 	  
 	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 	  </div>
-		<div role="tabpanel" class="tab-pane" id="general">
+		<div role="tabpanel" class="tab-pane fade" id="general">
 		
 		
 		
@@ -176,32 +258,7 @@ END;
 	
 		
 		</div>
-		<div role="tabpanel" class="tab-pane" id="captcahws">
-		
-		
-		
-	  <div class="checkbox">
-		<label>
-		  <input type="checkbox" name="captcha_ws_active" <?php if($captcha_ws_active==1) echo 'checked'; ?> value="1"> Activate
-		</label>
-	  </div>
-		
-	<div class="form-group">
-		<label for="exampleInputEmail1">Captcha Key</label>
-		<input type="text" name="captcha_ws_key" class="form-control" value="<?php echo $captcha_ws_key; ?>"/>
-	</div>
-		
-		
-		
-		
-		Get your key from <a href="http://captcha.ws/" target="_blank">Captcha.ws</a>
-		
-		
-		
-		
-		
-		</div>
-		<div role="tabpanel" class="tab-pane" id="solvemedia">
+		<div role="tabpanel" class="tab-pane fade" id="solvemedia">
 		
 		
 		
@@ -212,20 +269,20 @@ END;
 	  </div>
 		
 	<div class="form-group">
-		<label for="exampleInputEmail1">Private Key</label>
+		<label for="exampleInputEmail1">Challenge Key (C-key)</label>
 		<input type="text" name="spk" id="spk" class="form-control" value="<?php echo $privkey; ?>"/>
 	</div>
 		
 		
 		
 	<div class="form-group">
-		<label for="exampleInputEmail1">Hash Key</label>
+		<label for="exampleInputEmail1">Verification Key (V-key)</label>
 		<input type="text" name="shk" id="shk" class="form-control" value="<?php echo $hashkey; ?>"/>
 	</div>
 		
 		
 	<div class="form-group">
-		<label for="exampleInputEmail1">Verification Key</label>
+		<label for="exampleInputEmail1">Authentication Hash Key (H-key)</label>
 		<input type="text" name="svk" id="svk" class="form-control" value="<?php echo $verkey; ?>"/>
 	</div>
 		
@@ -245,7 +302,7 @@ END;
 		
 		
 		</div>
-		<div role="tabpanel" class="tab-pane" id="recaptcha">
+		<div role="tabpanel" class="tab-pane fade" id="recaptcha">
 		
 		
 		
