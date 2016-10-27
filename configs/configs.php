@@ -2,7 +2,7 @@
 $faucet_steps=2;
 $adb=1;
 $bwait=2;
-$currency=5;
+$currency=1;
 $apicode='';
 $privkey='';
 $verkey='';
