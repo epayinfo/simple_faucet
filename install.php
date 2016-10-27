@@ -31,7 +31,7 @@ We aim to improve the quality of this script over time, so remember to check the
 Begin installing by clicking on the next step.
 </div>
 <div class="panel-footer">
-<a href="?step=2" class="btn btn-success pull-right">Next</a>
+<a href="../simple_1_faucet/?step=2" class="btn btn-success pull-right">Next</a>
 <div class="clearfix"></div>
 </div>
 </div>
@@ -197,7 +197,7 @@ Unable to connect to database.
   <br><br>
 
   <div class="col-md-4 col-md-push-4">
-  <a href="adm/" class="btn btn-success btn-block">Go to Administartion</a>
+  <a href="../simple_1_faucet/adm" class="btn btn-success btn-block">Go to Administartion</a>
 
   
   </div>
