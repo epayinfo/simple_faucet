@@ -2,7 +2,7 @@
 if(isset($_POST['login']) ){
 	$ss=new SystemComponent;
 	$info=$ss->getSetting();
-	if($info['adminpass']==hash('SHA256',$_POST['pass'])){
+	if($info['adminpass']==hash('SHA256',trim($_POST['pass']))){
 		$_SESSION['admin_loged']=true;
 		header('Location: index.php');
 		die();
@@ -22,7 +22,7 @@ if(isset($_POST['login']) ){
 	
 		<div class="row">   
 			<div class="form-group">
-				<label for="exampleInputEmail1">Prize In satoshi</label>
+				<label for="exampleInputEmail1">Administartion Passphare</label>
 				<input name="pass" type="password" class="form-control"/>
 			</div>
 		</div>
