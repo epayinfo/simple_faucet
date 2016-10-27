@@ -12,8 +12,8 @@ require_once "includes/dbconnector.class.php";
 require_once "includes/smarty/Smarty.class.php";
 require_once "includes/function.php";
 require_once "includes/solvemedialib.php";
-require_once "includes/captcha.ws.php";
 require_once "includes/recaptchalib.php";
+require_once "includes/antibotlinks.php";
 require_once "configs/configs.php";
 require_once "configs/prizes.php";
 /*** Includes ***/
