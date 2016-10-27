@@ -1,1 +1,1 @@
-<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=300x250&w=300&h=250">
+<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=468x60 Ad3&w=468&h=60">
