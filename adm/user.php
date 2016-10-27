@@ -9,12 +9,14 @@ if(isset($_GET['a'])&&$_GET['a']=='delete'){
 
 
 
-<table class="table table-hover table-striped">
+<table class="table table-hover table-striped" width="100%">
 	<tr align="center">
-		<td width="2%">#</td>
+		<td width="1%">#</td>
 		<td width="44%">wallet</td>
-		<td width="51%">Referred</td>
-		<td width="3%"></td> 
+		<td width="18%">No. Referred</td>
+		<td width="31%">No. Plays</td>
+		
+		<td width="6%"></td> 
 	</tr>
 <tbody>
 <?php
@@ -30,15 +32,16 @@ $i=($db->rownum())-$start;
 	while($res=$db->fetchArray()){
 ?>
 	<tr align="center" >
-		<td width="2%"><?php echo $i; $i--;?></td>
+		<td width="1%"><?php echo $i; $i--;?></td>
 		<td width="44%"><?php echo $res['wallet']; ?></td>     
-		<td width="51%">
+		<td width="18%">
 		<?php
 			$db2->Queryres("select count(user_id) as ucount from tbl_user where reffer_id='".$db->res['user_id']."' ");
 			echo number_format($db2->res['ucount']);
 		?>
 		</td>
-		<td width="3%"><a href="user.php?a=delete&id=<?php echo $res['user_id']?>">Delete</a></td>         
+		<td width="31%"><?php echo number_format($res['playnum']); ?></td>
+		<td width="6%"><a href="user.php?a=delete&id=<?php echo $res['user_id']?>">Delete</a></td>         
 	</tr>
 <?php  } ?>
 </tbody>
