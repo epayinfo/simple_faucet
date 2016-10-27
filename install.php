@@ -197,7 +197,7 @@ Unable to connect to database.
   <br><br>
 
   <div class="col-md-4 col-md-push-4">
-  <a href="../simple_1_faucet/adm" class="btn btn-success btn-block">Go to Administartion</a>
+  <a href="adm" class="btn btn-success btn-block">Go to Administartion</a>
 
   
   </div>
