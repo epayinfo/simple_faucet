@@ -8,7 +8,7 @@ if(isset($_POST['with'])){
 		unset($_SESSION['user']);
 		unset($_SESSION['error']);
 		$_SESSION['error']['anb']=true;
-		header('Location:index.php');
+		header('Location:index.php?er=antiblock');
 		die();
 	}
 	if( !isset($_SESSION['user']['wallet']) ) check_wallet();
@@ -38,14 +38,19 @@ if(isset($_POST['with'])){
 				$response = $client->send($apicode,$db2->res['wallet'],$refearn,2,'Referral earnings.');
 			}
 			unset($_SESSION['error']);
-		}else
+			header('Location:index.php?er=win');
+		}else{
+			unset($_SESSION['user']);
+			unset($_SESSION['error']);
 			$_SESSION['error']['epay']=true;
+			header('Location:index.php?er=epay');
+		}
 	}else{
 		unset($_SESSION['user']);
 		unset($_SESSION['error']);
 		$_SESSION['error']['capt']=true;
-	}
-	header('Location:index.php');
+		header('Location:index.php?er=captcha');
+	}	
 	die();
 }else{
 	$wallet=$_SESSION['user']['wallet'];
@@ -110,6 +115,15 @@ $smarty->assign('keywords',$keywords);
 $smarty->assign('desc',$desc);
 $smarty->assign('year',date('Y',$now));
 $smarty->assign('anti_bot',$anti_bot);
+
+
+
+
+$smarty->assign('currency',currency($currency));
+
+
+
+
 if( $anti_bot && ( ($faucet_steps==2 && isset($_POST['step2']))  || $faucet_steps==1 )){
 	$antibotlinks = new antibotlinks(true);
 	$antibotlinks->generate($anti_bot, true);	
