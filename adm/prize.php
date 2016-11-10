@@ -1,7 +1,7 @@
 <?php
 require_once "header.php";
 require_once "../configs/prizes.php";
-
+require_once "../configs/configs.php";
 $db2=new DbConnector;
 if( isset($_POST['new_price']) ){
 	$prize=$_POST['prize'];
@@ -168,6 +168,9 @@ END;
 
 
 
+	<Div class="alert alert-danger">
+		Remember to apply new prizes after change to take effect.	
+	</Div>
 
 
 
@@ -308,7 +311,7 @@ while($res=$db->fetchArray()){
 		
 		
 		<div class="form-group">
-			<label for="exampleInputEmail1">Prize In satoshi</label>
+			<label for="exampleInputEmail1">Prize In <?php echo currency($currency);?></label>
 			<input type="number" class="form-control" name="prize" >
 		</div>
 		
@@ -331,9 +334,8 @@ while($res=$db->fetchArray()){
 	<div class="clearfix" style="margin-top:20px;"></div>
 <br>
 
-	<Div class="alert alert-info">
-		Remember to apply new prizes after change to take effect.
-	
+	<Div class="alert alert-danger">
+		Remember to apply new prizes after change to take effect.	
 	</Div>
 
 
