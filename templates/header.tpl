@@ -34,7 +34,7 @@
 		
 		
 <Div class="row text-center" style="font-size:20px;">
-	Every {$setinterval} minutes you can earn between <span style="color:#428bca">{$prize_min}</span> and <span style="color:#428bca">{$prize_max}</span> satoshi.<br>
+	Every {$setinterval} minutes you can earn between <span style="color:#428bca">{$prize_min}</span> and <span style="color:#428bca">{$prize_max}</span> {$currency}<br>
 	<strong>Your earnings goes directly to your <a href="http://epay.info/" target="_blank">ePay</a> account</strong>
 </Div>  
 
