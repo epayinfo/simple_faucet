@@ -36,15 +36,12 @@ function get_rewards($rewards = null){
 	return $result;
 }
 
-
-
 if (isset($_GET['r']) || isset($_GET['w']) ){
 	if (isset($_GET['r']) && $_GET['r']!='')
 		setcookie('r', trim($_GET['r']), time() + 60 * 60 * 24 * 30);
 		
 	if (isset($_GET['w']) && $_GET['w']!='')
 		setcookie('w', trim($_GET['w']), time() + 60 * 60 * 24 * 30);
-		header('Location: index.php');
 }
 
 function convertToBTCFromSatoshi($value){
@@ -96,39 +93,37 @@ function User_id($wallet){
 	return array('uid'=>$uid,'refid'=>$rid);
 }
 
-
-function check_wallet(){
-	
-	
-	
+function check_wallet(){			
 	if($_POST['wallet']==''){ 
 		unset($_SESSION['wallet']);
 		$_SESSION['error']['nowallet']=true;
-		header('Location:index.php');
+		header('Location:index.php?er=noadd');
 		die();
 	}else{
 		$_SESSION['user']['wallet']=trim($_POST['wallet']);
 		$user=User_id($_SESSION['user']['wallet']);
 		$_SESSION['user']['uid']=$user['uid'];
 		$_SESSION['user']['refid']=$user['refid'];
-	}
-	
-	
-	
-	
-	
-	
+	}						
 }
 
-
-
-
-
-
-
-
-
-
-
-
+function currency($currency){
+	switch ($currency){
+		case 1:
+		return 'Satoshi (Bitcoin)';
+		break;
+			
+		case 4:
+		return 'Dogecoin';
+		break;
+			
+		case 5:
+		return 'Satoshi (Litecoin)';
+		break;
+			
+		case 7:
+		return 'Satoshi (Dashcoin)';
+		break;												
+	}								
+}
 ?>
