@@ -4,7 +4,7 @@ Simple faucet Ready out of box for ePay.info
 #Features
 Ready-to-use script
 
-Multi Captcha support (Captchaws,SolveMedia,recaptcha)
+Multi Captcha support (SolveMedia,recaptcha)
 
 Private admin area
 
@@ -16,9 +16,11 @@ Clean and lightweight
 
 Adblocker detection
 
+Anti bot system
+
 Claim button timer
 
-Multi currency
+Multi currency (Bitcoin,Dogecoin,Litecoin,Dashcoin)
 
 
 
