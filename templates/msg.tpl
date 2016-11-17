@@ -1,3 +1,30 @@
+
+
+<div class="row" style="margin-top:5px;">
+	<div class="col-md-10 col-md-push-1">
+		<div class="alert alert-success text-center">We have {$faucet_balance}</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+{if $epay_err}
+<div class="row" style="margin-top:5px;">
+	<div class="col-md-10 col-md-push-1">
+		<div class="alert alert-danger">{$epay_err_msg}</div>
+	</div>
+</div>
+{/if}
+
+
+
+
+
+
 {if $captcha}
 <div class="row" style="margin-top:5px;">
 	<div class="col-md-10 col-md-push-1">
