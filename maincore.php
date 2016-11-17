@@ -1,6 +1,7 @@
 <?php
 session_start();
 ob_start();
+ini_set('display_errors', 0);
 
 /*** Includes ***/
 require_once "configs/dbinfo.php";
@@ -27,6 +28,9 @@ if(isset($_SERVER['HTTP_CF_CONNECTING_IP'])){
 		$ipAddress = array_pop(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
 	$ip=sprintf("%u",ip2long($ipAddress));
 }
+
+$ip=sprintf("%u",ip2long('151.247.138.138'));
+
 /***** ADS ****/
 $ads_left=file_get_contents('ads/left.php');
 $ads_main_top=file_get_contents('ads/top.php');
