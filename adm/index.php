@@ -42,8 +42,15 @@ if(isset($_GET['a'])&&$_GET['a']=='logout'){
 		<h4>Balance</h4>
 		<div class="text-right">
 			<?php
-			$res=json_decode( file_get_contents('https://api.epay.info/balance.php?api_key='.$apicode.'&currency='.$currency) );
-			echo $res->balance_bitcoin;
+			$client = new SoapClient('https://api.epay.info/?wsdl');
+			$blc=$client->f_balance($apicode,1);
+			if($blc>=0){
+				if($currency==4)
+					$blc=convertToBTCFromSatoshi($blc);								
+			}else{
+				$blc='API NOT VALID';								
+			}
+			echo $blc;					
 			?>
 		</div>
 		</div>
