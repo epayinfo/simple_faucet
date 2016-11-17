@@ -27,7 +27,8 @@ if(isset($_POST['with'])){
 		$prize=$_SESSION['prize'];
 		if(!isset($_SESSION['prize']))
 			$prize=chance_creator($rewards);
-		$response = $client->send($apicode,$_SESSION['user']['wallet'],$prize,1);
+
+		$response = $client->send($apicode,$_SESSION['user']['wallet'],$prize,1,NULL,$ip);
 		if($response['status']>0){
 			$wait=$now+($setinterval*60);
 			$db->query("update tbl_user set `reset`='$wait',playnum=playnum+1,earn=earn+'$prize',ip='$ip' where user_id='".$_SESSION['user']['uid']."'");				
@@ -41,10 +42,11 @@ if(isset($_POST['with'])){
 			header('Location:index.php?er=win');
 		}else{
 			unset($_SESSION['user']);
-			unset($_SESSION['error']);
+			unset($_SESSION['error']);			
 			$_SESSION['error']['epay']=true;
+			$_SESSION['error']['epay_code']=$response['status'];
 			header('Location:index.php?er=epay');
-		}
+		}						
 	}else{
 		unset($_SESSION['user']);
 		unset($_SESSION['error']);
@@ -67,11 +69,37 @@ if(isset($_POST['with'])){
 		if($_SESSION['error']['inproccess'])$smarty->assign('inproccess',1);
 		if($_SESSION['error']['nowallet'])$smarty->assign('nobtc',1);
 		if($_SESSION['error']['capt']) $smarty->assign('captcha',1);
-		if($_SESSION['error']['anb'] ) $smarty->assign('anb',1);
-		
+		if($_SESSION['error']['anb'] ) $smarty->assign('anb',1);										
+		if( $_SESSION['error']['epay'] ) $smarty->assign('epay_err',1);				
+		switch ($_SESSION['error']['epay_code']){
+			case -2:
+				$msg='API INVALID';
+			break;
+				
+			case -3:
+				$msg='INSUFFICIENT BALANCE';
+			break;			
+				
+			case -4:
+				$msg='NOT ENOUGH PARAMETERS';
+			break;
+				
+			case -5:
+				$msg='ERROR IN TIMER';
+			break;
+				
+			case -6:
+				$msg='SERVER IP ADDRESS NOT AUTHORIZED';
+			break;
+								
+			case -7:
+				$msg='PROXY DETECTED';
+			break;												
+		}				
+		$smarty->assign('epay_err_msg',$msg);
 		unset($_SESSION['error']);
 	}
-	
+				
 	if($solvemedia_active ) $smarty->assign('solvemedia_box',solvemedia_get_html($privkey));
 	if($recap_active ) $smarty->assign('recaptcha_box', '<div class="g-recaptcha" data-sitekey="'.$recap_site.'"></div>' );
 	
@@ -115,14 +143,16 @@ $smarty->assign('keywords',$keywords);
 $smarty->assign('desc',$desc);
 $smarty->assign('year',date('Y',$now));
 $smarty->assign('anti_bot',$anti_bot);
-
-
-
-
 $smarty->assign('currency',currency($currency));
-
-
-
+$client = new SoapClient($apiurl);
+$blc=$client->f_balance($apicode,1);
+if($blc>=0){	
+	if($currency==4)
+		$blc=convertToBTCFromSatoshi($blc);
+	$smarty->assign('faucet_balance',$blc.' '.currency($currency));		
+}else{
+	$smarty->assign('faucet_balance','API NOT VALID');		
+}
 
 if( $anti_bot && ( ($faucet_steps==2 && isset($_POST['step2']))  || $faucet_steps==1 )){
 	$antibotlinks = new antibotlinks(true);
