@@ -29,8 +29,6 @@ if(isset($_SERVER['HTTP_CF_CONNECTING_IP'])){
 	$ip=sprintf("%u",ip2long($ipAddress));
 }
 
-$ip=sprintf("%u",ip2long('151.247.138.138'));
-
 /***** ADS ****/
 $ads_left=file_get_contents('ads/left.php');
 $ads_main_top=file_get_contents('ads/top.php');
