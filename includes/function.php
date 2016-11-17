@@ -45,7 +45,7 @@ if (isset($_GET['r']) || isset($_GET['w']) ){
 }
 
 function convertToBTCFromSatoshi($value){
-	return bcdiv( intval($value), 100000000, 8 );
+	return (float)bcdiv( ($value), 100000000, 8 );
 }
 function create_user($wallet,$reffer_id=NULL){ 
 	global $db;
