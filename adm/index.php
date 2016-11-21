@@ -41,8 +41,12 @@ if(isset($_GET['a'])&&$_GET['a']=='logout'){
 		<div class="alert alert-danger">
 		<h4>Balance</h4>
 		<div class="text-right">
-			<?php
-			$client = new SoapClient('https://api.epay.info/?wsdl');
+			<?php		
+			try{
+				$client = new SoapClient('https://apis.epay.info/?wsdl'); 
+			}catch(Exception $e){
+				$client = new SoapClient('http://api.epay.info/?wsdl'); 
+			}						
 			$blc=$client->f_balance($apicode,1);
 			if($blc>=0){
 				if($currency==4)
@@ -56,4 +60,31 @@ if(isset($_GET['a'])&&$_GET['a']=='logout'){
 		</div>
 	</Div>
 </div>
+
+<div class="row">
+	<Div class="col-md-12">
+		<div class="alert alert-info">
+		Your version is : <?php echo $ver; ?><br>
+		<?php
+	$v=json_decode(file_get_contents('http://epay.info/script_edition.php'));
+	if($v->ver==$ver)
+		echo 'No update available';
+	else{
+		?>
+		There is a new update available (<?php echo $v->ver; ?>). Consider updating.<br>
+
+		
+		<a href="https://github.com/epayinfo/simple_faucet/archive/master.zip" target="_blank" class="btn btn-info" download> Download New Update </a>
+		
+		
+	<?php }
+		
+	?>
+		
+
+		</div>
+	</Div>	
+</div>
+
+
 <?php }require_once "footer.php"; ?>
