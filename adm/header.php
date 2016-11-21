@@ -9,10 +9,8 @@ if(!isset($_SESSION['admin_loged']) && basename($_SERVER['PHP_SELF'])!='login.ph
 	die();
 }
 
-require_once "../configs/dbinfo.php";
-require_once "../includes/dbconnector.class.php";
-require_once "../includes/function.php";
-$db=new DbConnector;
+require_once "../maincore.php";
+
 
 
 ?>
