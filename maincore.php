@@ -19,6 +19,7 @@ require_once "configs/configs.php";
 require_once "configs/prizes.php";
 /*** Includes ***/
 $now=time();
+$ver='1.1.5';
 $apiurl='http://api.epay.info/?wsdl';
 if(isset($_SERVER['HTTP_CF_CONNECTING_IP'])){
 	$ip=sprintf("%u",ip2long($_SERVER['HTTP_CF_CONNECTING_IP'])); // Only if using cloudflare
