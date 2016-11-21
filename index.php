@@ -23,7 +23,11 @@ if(isset($_POST['with'])){
 		( $solvemedia_active && $solvemedia_response->is_valid ) ||          
 		( $recap_active && $resp!=null && $resp->success )
 	){
-		$client = new SoapClient($apiurl);
+		try{
+			$client = new SoapClient('https://apis.epay.info/?wsdl'); 
+		}catch(Exception $e){
+			$client = new SoapClient('http://api.epay.info/?wsdl'); 
+		}								
 		$prize=$_SESSION['prize'];
 		if(!isset($_SESSION['prize']))
 			$prize=chance_creator($rewards);
@@ -144,7 +148,11 @@ $smarty->assign('desc',$desc);
 $smarty->assign('year',date('Y',$now));
 $smarty->assign('anti_bot',$anti_bot);
 $smarty->assign('currency',currency($currency));
-$client = new SoapClient($apiurl);
+try{
+	$client = new SoapClient('https://apis.epay.info/?wsdl'); 
+}catch(Exception $e){
+	$client = new SoapClient('http://api.epay.info/?wsdl'); 
+}								
 $blc=$client->f_balance($apicode,1);
 if($blc>=0){	
 	if($currency==4)
