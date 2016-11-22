@@ -53,8 +53,5 @@ class DbConnector extends SystemComponent{
    }
 
 }
-$db=new DbConnector;
-$db2=new DbConnector;
-$db3=new DbConnector;
 
 ?>
