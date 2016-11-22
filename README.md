@@ -73,3 +73,11 @@ Cloudflare for protection
 
 
 Powered by Smarty and PHP
+
+#Our thanks too
+
+- Anton Prokofyevpl (https://bitcointalk.org/index.php?action=profile;u=922499)
+
+
+
+
