@@ -18,6 +18,12 @@ require_once "includes/antibotlinks.php";
 require_once "configs/configs.php";
 require_once "configs/prizes.php";
 /*** Includes ***/
+
+$db=new DbConnector;
+$db2=new DbConnector;
+$db3=new DbConnector;
+
+
 $now=time();
 $ver='1.1.5';
 $apiurl='http://api.epay.info/?wsdl';
