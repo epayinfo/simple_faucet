@@ -123,7 +123,21 @@ function currency($currency){
 			
 		case 7:
 		return 'Satoshi (Dashcoin)';
-		break;												
+		break;	
+			
+			
+		case 9:
+		return 'Satoshi (Peercoin)';
+		break;	
+			
+		case 10:
+		return 'Satoshi (Primecoin)';
+		break;	
+			
+			
+			
+			
+			
 	}								
 }
 ?>
