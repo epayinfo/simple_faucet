@@ -110,7 +110,9 @@ END;
 					<option <?php if($currency==4) echo 'selected'; ?> value="4" >Dogecoin</option>
 					<option <?php if($currency==5) echo 'selected'; ?> value="5" >Litecoin</option>
 					<option <?php if($currency==6) echo 'selected'; ?> value="6">Ethereum</option>
-					<option <?php if($currency==7) echo 'selected'; ?> value="7">Dash</option>
+					<option <?php if($currency==7) echo 'selected'; ?> value="7">Dash</option>					
+					<option <?php if($currency==9) echo 'selected'; ?> value="9">Peercoin</option>					
+					<option <?php if($currency==10) echo 'selected'; ?> value="9">Primecoin</option>					
 				</select>
 			</div>
 		</div>
