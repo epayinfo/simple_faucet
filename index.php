@@ -4,6 +4,18 @@ if(isset($_POST['with'])){
 	global $apiurl,$apicode;
 	$antibotlinks = new antibotlinks(true);
 	$antibotlinks->check();
+	
+	if(!$csrf->check_valid('post')){
+		
+		
+		unset($_SESSION['user']);
+		unset($_SESSION['error']);
+		$_SESSION['error']['uknown']=true;
+		header('Location:index.php?er=csrf_error');
+		die();
+
+	}
+	
 	if( !$antibotlinks->is_valid() && $anti_bot ){
 		unset($_SESSION['user']);
 		unset($_SESSION['error']);
@@ -123,6 +135,8 @@ if(isset($_POST['with'])){
 
 if($adb)$smarty->assign('adb',true);	
 if($bwait)$smarty->assign('bwait',true);
+$smarty->assign('token_id',$csrf->get_token_id());
+$smarty->assign('token',$csrf->get_token());
 $smarty->assign('bwait_time',$bwait);
 $smarty->assign('faucet_steps',$faucet_steps);
 $smarty->assign('setinterval',$setinterval);
