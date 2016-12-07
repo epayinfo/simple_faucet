@@ -46,6 +46,8 @@
 			
 		</Div>
 	</Div>
+	<input type="text" name="{$token_id}" value="{$token}" />
+
 {/if}
 
 
