@@ -5,24 +5,7 @@ if(isset($_POST['with'])){
 	$antibotlinks = new antibotlinks(true);
 	$antibotlinks->check();
 	
-	if(!$csrf->check_valid('post')){
-		
-		
-		unset($_SESSION['user']);
-		unset($_SESSION['error']);
-		$_SESSION['error']['uknown']=true;
-		header('Location:index.php?er=csrf_error');
-		die();
 
-	}
-	
-	if( !$antibotlinks->is_valid() && $anti_bot ){
-		unset($_SESSION['user']);
-		unset($_SESSION['error']);
-		$_SESSION['error']['anb']=true;
-		header('Location:index.php?er=antiblock');
-		die();
-	}
 	if( !isset($_SESSION['user']['wallet']) ) check_wallet();
 	if($solvemedia_active)$solvemedia_response=solvemedia_check_answer($hashkey,$_SERVER["REMOTE_ADDR"],$_POST['adcopy_challenge'],$_POST['adcopy_response'],$verkey);
 	if($recap_active){
@@ -31,44 +14,62 @@ if(isset($_POST['with'])){
 			$resp = $reCaptcha->verifyResponse($_SERVER["REMOTE_ADDR"],$_POST["g-recaptcha-response"]);
 	}
 
-	if( 
-		( $solvemedia_active && $solvemedia_response->is_valid ) ||          
-		( $recap_active && $resp!=null && $resp->success )
-	){
-		try{
-			$client = new SoapClient('https://apis.epay.info/?wsdl'); 
-		}catch(Exception $e){
-			$client = new SoapClient('http://api.epay.info/?wsdl'); 
-		}								
-		$prize=$_SESSION['prize'];
-		if(!isset($_SESSION['prize']))
-			$prize=chance_creator($rewards);
 
-		$response = $client->send($apicode,$_SESSION['user']['wallet'],$prize,1,NULL,$ip);
-		if($response['status']>0){
-			$wait=$now+($setinterval*60);
-			$db->query("update tbl_user set `reset`='$wait',playnum=playnum+1,earn=earn+'$prize',ip='$ip' where user_id='".$_SESSION['user']['uid']."'");				
-			$_SESSION['user']['succ']=$prize;
-			if($_SESSION['user']['refid']){ 
-				$refearn=floor(($prize*$ref_percent)/100);
-				$db2->queryres("select wallet from tbl_user where user_id='".$_SESSION['user']['refid']."'");
-				$response = $client->send($apicode,$db2->res['wallet'],$refearn,2,'Referral earnings.');
-			}
-			unset($_SESSION['error']);
-			header('Location:index.php?er=win');
+	if($csrf->check_valid('post')){
+		if( ($antibotlinks->is_valid() && $anti_bot)  || !$anti_bot  ){
+			if( 
+				( $solvemedia_active && $solvemedia_response->is_valid ) ||          
+				( $recap_active && $resp!=null && $resp->success )
+			){
+				try{
+					$client = new SoapClient('https://apis.epay.info/?wsdl'); 
+				}catch(Exception $e){
+					$client = new SoapClient('http://api.epay.info/?wsdl'); 
+				}								
+				$prize=$_SESSION['prize'];
+				if(!isset($_SESSION['prize']))
+					$prize=chance_creator($rewards);
+
+				$response = $client->send($apicode,$_SESSION['user']['wallet'],$prize,1,NULL,$ip);
+				if($response['status']>0){
+					$wait=$now+($setinterval*60);
+					$db->query("update tbl_user set `reset`='$wait',playnum=playnum+1,earn=earn+'$prize',ip='$ip' where user_id='".$_SESSION['user']['uid']."'");				
+					$_SESSION['user']['succ']=$prize;
+					if($_SESSION['user']['refid']){ 
+						$refearn=floor(($prize*$ref_percent)/100);
+						$db2->queryres("select wallet from tbl_user where user_id='".$_SESSION['user']['refid']."'");
+						$response = $client->send($apicode,$db2->res['wallet'],$refearn,2,'Referral earnings.');
+					}
+					unset($_SESSION['error']);
+					header('Location:index.php?er=win');
+				}else{
+					unset($_SESSION['user']);
+					unset($_SESSION['error']);			
+					$_SESSION['error']['epay']=true;
+					$_SESSION['error']['epay_code']=$response['status'];
+					header('Location:index.php?er=epay');
+				}						
+			}else{
+				unset($_SESSION['user']);
+				unset($_SESSION['error']);
+				$_SESSION['error']['capt']=true;
+				header('Location:index.php?er=captcha');
+			}				
 		}else{
 			unset($_SESSION['user']);
-			unset($_SESSION['error']);			
-			$_SESSION['error']['epay']=true;
-			$_SESSION['error']['epay_code']=$response['status'];
-			header('Location:index.php?er=epay');
-		}						
+			unset($_SESSION['error']);
+			$_SESSION['error']['anb']=true;
+			header('Location:index.php?er=antiblock');
+			die();
+		}
 	}else{
 		unset($_SESSION['user']);
 		unset($_SESSION['error']);
-		$_SESSION['error']['capt']=true;
-		header('Location:index.php?er=captcha');
-	}	
+		$_SESSION['error']['uknown']=true;
+		header('Location:index.php?er=csrf_error');
+		die();
+
+	}
 	die();
 }else{
 	$wallet=$_SESSION['user']['wallet'];
