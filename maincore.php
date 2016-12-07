@@ -31,8 +31,8 @@ if(isset($_SERVER['HTTP_CF_CONNECTING_IP'])){
 	$ip=sprintf("%u",ip2long($_SERVER['HTTP_CF_CONNECTING_IP'])); // Only if using cloudflare
 }else{
 	$ipAddress = $_SERVER['REMOTE_ADDR'];
-	if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER))
-		$ipAddress = array_pop(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
+//	if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER))
+	//	$ipAddress = array_pop(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
 	$ip=sprintf("%u",ip2long($ipAddress));
 }
 
