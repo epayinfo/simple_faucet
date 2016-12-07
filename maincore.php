@@ -15,6 +15,10 @@ require_once "includes/function.php";
 require_once "includes/solvemedialib.php";
 require_once "includes/recaptchalib.php";
 require_once "includes/antibotlinks.php";
+require_once "includes/csrf.class.php";
+
+
+
 require_once "configs/configs.php";
 require_once "configs/prizes.php";
 /*** Includes ***/
@@ -22,10 +26,10 @@ require_once "configs/prizes.php";
 $db=new DbConnector;
 $db2=new DbConnector;
 $db3=new DbConnector;
-
+$csrf=new csrf();
 
 $now=time();
-$ver='1.1.6';
+$ver='1.1.7';
 $apiurl='http://api.epay.info/?wsdl';
 if(isset($_SERVER['HTTP_CF_CONNECTING_IP'])){
 	$ip=sprintf("%u",ip2long($_SERVER['HTTP_CF_CONNECTING_IP'])); // Only if using cloudflare
