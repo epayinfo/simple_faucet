@@ -22,7 +22,7 @@ if(isset($_POST['with'])){
 				( $recap_active && $resp!=null && $resp->success )
 			){
 				try{
-					$client = new SoapClient('https://apis.epay.info/?wsdl'); 
+					$client = new SoapClient('https://api.epay.info/?wsdl'); 
 				}catch(Exception $e){
 					$client = new SoapClient('http://api.epay.info/?wsdl'); 
 				}								
@@ -144,7 +144,7 @@ $smarty->assign('setinterval',$setinterval);
 $smarty->assign('ads_1',$ads_1);
 $smarty->assign('ads_2',$ads_2);
 $smarty->assign('ads_3',$ads_3);
-$smarty->assign('wll',$_COOKIE['w']);
+$smarty->assign('wll',$_GET['w']);
 $smarty->assign('title',$sitetitle);
 $smarty->assign('favicon',$favicon);
 $smarty->assign('domainname',$domainname);
@@ -164,7 +164,7 @@ $smarty->assign('year',date('Y',$now));
 $smarty->assign('anti_bot',$anti_bot);
 $smarty->assign('currency',currency($currency));
 try{
-	$client = new SoapClient('https://apis.epay.info/?wsdl'); 
+	$client = new SoapClient('https://api.epay.info/?wsdl'); 
 }catch(Exception $e){
 	$client = new SoapClient('http://api.epay.info/?wsdl'); 
 }								
