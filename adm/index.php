@@ -43,7 +43,7 @@ if(isset($_GET['a'])&&$_GET['a']=='logout'){
 		<div class="text-right">
 			<?php		
 			try{
-				$client = new SoapClient('https://apis.epay.info/?wsdl'); 
+				$client = new SoapClient('https://api.epay.info/?wsdl'); 
 			}catch(Exception $e){
 				$client = new SoapClient('http://api.epay.info/?wsdl'); 
 			}						
