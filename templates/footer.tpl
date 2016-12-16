@@ -1,6 +1,6 @@
 <Div class="row" style="margin-top:5px; font-size:18px;">
 	<Div class="col-md-10 col-md-push-1">
-		<div class="well well-sm text-center">Earn {$ref_percent}% referral bonus! Share your referral URL<br>http://www.{$domainname}/?r=ePay username,email or BTC address</div>
+		<div class="well well-sm text-center">Earn {$ref_percent}% referral bonus! Share your referral URL<br>{$domainname}/?r=ePay username,email or BTC address</div>
 	</Div>
 </Div>
     
