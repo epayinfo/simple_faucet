@@ -61,6 +61,26 @@ if(isset($_GET['a'])&&$_GET['a']=='logout'){
 	</Div>
 </div>
 
+<Div class="row">
+
+	<Div class="col-md-3">
+		<div class="alert alert-danger">
+		<h4>Your IP address for ACL</h4>
+		<div class="text-right">
+			<?php
+			echo file_get_contents('http://api.epay.info/ip.php');
+			?>
+		</div>
+		</div>
+	</Div>
+
+</Div>
+
+
+
+
+
+
 <div class="row">
 	<Div class="col-md-12">
 		<div class="alert alert-info">
