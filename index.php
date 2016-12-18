@@ -94,7 +94,7 @@ if(isset($_POST['with'])){
 			break;
 				
 			case -3:
-				$msg='INSUFFICIENT BALANCE';
+				$msg='INSUFFICIENT BALANCE, try again later';
 			break;			
 				
 			case -4:
@@ -102,7 +102,7 @@ if(isset($_POST['with'])){
 			break;
 				
 			case -5:
-				$msg='ERROR IN TIMER';
+				$msg='ERROR IN TIMER, try again later';
 			break;
 				
 			case -6:
@@ -111,7 +111,30 @@ if(isset($_POST['with'])){
 								
 			case -7:
 				$msg='PROXY DETECTED';
-			break;												
+			break;	
+				
+			case -8:
+				$msg='User country is blocked';
+			break;	
+				
+			case -10:
+				$msg='Daily budget reached, try again later';
+			break;	
+				
+				
+			case -11:
+				$msg='	time-frame limit reached, try again later';
+			break;	
+				
+				
+			case -100:
+				$msg='Faucet owner please contact ePay.info As soon as possible';
+			break;	
+				
+				
+				
+				
+				
 		}				
 		$smarty->assign('epay_err_msg',$msg);
 		unset($_SESSION['error']);
