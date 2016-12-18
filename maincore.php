@@ -29,7 +29,7 @@ $db3=new DbConnector;
 $csrf=new csrf();
 
 $now=time();
-$ver='1.1.7';
+$ver='1.1.9';
 $apiurl='http://api.epay.info/?wsdl';
 if(isset($_SERVER['HTTP_CF_CONNECTING_IP'])){
 	$ip=sprintf("%u",ip2long($_SERVER['HTTP_CF_CONNECTING_IP'])); // Only if using cloudflare
