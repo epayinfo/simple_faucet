@@ -48,7 +48,7 @@
 <div class="row" style="margin-top:5px;">
 	<div class="col-md-10 col-md-push-1">
 		<div class="alert alert-success text-center">
-			<strong>{$succ}</strong> {$currency} was sent to <strong><a href="https://epay.info/login/" target="_blank" style="color:#464646"> your ePay.info account</a></strong>
+			<strong>{$succ}</strong> {$currency} was sent to <strong><a href="https://epay.info/check/{$wallet}" target="_blank" style="color:#464646"> your ePay.info account</a></strong>
 		</div>
 	</div>
 </div>
