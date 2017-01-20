@@ -41,20 +41,9 @@ if(isset($_GET['a'])&&$_GET['a']=='logout'){
 		<div class="alert alert-danger">
 		<h4>Balance</h4>
 		<div class="text-right">
-			<?php		
-			try{
-				$client = new SoapClient('https://api.epay.info/?wsdl'); 
-			}catch(Exception $e){
-				$client = new SoapClient('http://api.epay.info/?wsdl'); 
-			}						
-			$blc=$client->f_balance($apicode,1);
-			if($blc>=0){
-				if($currency==4)
-					$blc=convertToBTCFromSatoshi($blc);								
-			}else{
-				$blc='API NOT VALID';								
-			}
-			echo $blc;					
+			<?php	
+				$clinet=new ePay($apicode);
+				echo $clinet->getBalance();
 			?>
 		</div>
 		</div>
