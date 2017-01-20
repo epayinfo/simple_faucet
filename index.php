@@ -1,11 +1,9 @@
 <?php 
 require_once "maincore.php";
 if(isset($_POST['with'])){
-	global $apiurl,$apicode;
+	global $apicode;
 	$antibotlinks = new antibotlinks(true);
-	$antibotlinks->check();
-	
-
+	$antibotlinks->check();	
 	if( !isset($_SESSION['user']['wallet']) ) check_wallet();
 	if($solvemedia_active)$solvemedia_response=solvemedia_check_answer($hashkey,$_SERVER["REMOTE_ADDR"],$_POST['adcopy_challenge'],$_POST['adcopy_response'],$verkey);
 	if($recap_active){
@@ -13,24 +11,18 @@ if(isset($_POST['with'])){
 		if ($_POST["g-recaptcha-response"])
 			$resp = $reCaptcha->verifyResponse($_SERVER["REMOTE_ADDR"],$_POST["g-recaptcha-response"]);
 	}
-
-
 	if($csrf->check_valid('post')){
-		if( ($antibotlinks->is_valid() && $anti_bot)  || !$anti_bot  ){
+		if( ($antibotlinks->is_valid() && $anti_bot) || !$anti_bot ){
 			if( 
 				( $solvemedia_active && $solvemedia_response->is_valid ) ||          
 				( $recap_active && $resp!=null && $resp->success )
-			){
-				try{
-					$client = new SoapClient('https://api.epay.info/?wsdl'); 
-				}catch(Exception $e){
-					$client = new SoapClient('http://api.epay.info/?wsdl'); 
-				}								
+			){								
 				$prize=$_SESSION['prize'];
 				if(!isset($_SESSION['prize']))
 					$prize=chance_creator($rewards);
-
-				$response = $client->send($apicode,$_SESSION['user']['wallet'],$prize,1,NULL,$ip);
+							
+				$clinet=new ePay($apicode);	
+				$response=$clinet->send( $_SESSION['user']['wallet'],$prize,NULL,$ip );
 				if($response['status']>0){
 					$wait=$now+($setinterval*60);
 					$db->query("update tbl_user set `reset`='$wait',playnum=playnum+1,earn=earn+'$prize',ip='$ip' where user_id='".$_SESSION['user']['uid']."'");				
@@ -38,17 +30,17 @@ if(isset($_POST['with'])){
 					if($_SESSION['user']['refid']){ 
 						$refearn=floor(($prize*$ref_percent)/100);
 						$db2->queryres("select wallet from tbl_user where user_id='".$_SESSION['user']['refid']."'");
-						$response = $client->send($apicode,$db2->res['wallet'],$refearn,2,'Referral earnings.');
+						$clinet->send( $db2->res['wallet'],$refearn,'Referral earnings.',NULL,2 );						
 					}
 					unset($_SESSION['error']);
-					header('Location:index.php?er=win');
+					header('Location:index.php?er=win');															
 				}else{
 					unset($_SESSION['user']);
 					unset($_SESSION['error']);			
 					$_SESSION['error']['epay']=true;
 					$_SESSION['error']['epay_code']=$response['status'];
 					header('Location:index.php?er=epay');
-				}						
+				}					
 			}else{
 				unset($_SESSION['user']);
 				unset($_SESSION['error']);
@@ -116,25 +108,27 @@ if(isset($_POST['with'])){
 			case -8:
 				$msg='User country is blocked';
 			break;	
-				
+								
+			case -9:
+				$msg='Budget reached and transaction has been canceled';
+			break;	
+								
 			case -10:
 				$msg='Daily budget reached, try again later';
 			break;	
-				
-				
+								
 			case -11:
 				$msg='	time-frame limit reached, try again later';
 			break;	
 				
+			case -13:
+				$msg="Per user's daily budget reached";
+			break;	
 				
 			case -100:
 				$msg='Faucet owner please contact ePay.info As soon as possible';
 			break;	
-				
-				
-				
-				
-				
+																				
 		}				
 		$smarty->assign('epay_err_msg',$msg);
 		unset($_SESSION['error']);
@@ -186,12 +180,8 @@ $smarty->assign('desc',$desc);
 $smarty->assign('year',date('Y',$now));
 $smarty->assign('anti_bot',$anti_bot);
 $smarty->assign('currency',currency($currency));
-try{
-	$client = new SoapClient('https://api.epay.info/?wsdl'); 
-}catch(Exception $e){
-	$client = new SoapClient('http://api.epay.info/?wsdl'); 
-}								
-$blc=$client->f_balance($apicode,1);
+$clinet=new ePay($apicode);
+$blc=$clinet->getBalance();
 if($blc>=0){	
 	if($currency==4)
 		$blc=convertToBTCFromSatoshi($blc);
@@ -204,14 +194,7 @@ if( $anti_bot && ( ($faucet_steps==2 && isset($_POST['step2']))  || $faucet_step
 	$antibotlinks = new antibotlinks(true);
 	$antibotlinks->generate($anti_bot, true);	
 	$smarty->assign('abinf',$antibotlinks->show_info());	
-	switch($anti_bot){
-		case 1:
-			$smarty->assign('ab1',$antibotlinks->show_link());
-		break;
-		case 2:
-			$smarty->assign('ab1',$antibotlinks->show_link());
-			$smarty->assign('ab2',$antibotlinks->show_link());
-		break;
+	switch($anti_bot){		
 		case 3:
 			$smarty->assign('ab1',$antibotlinks->show_link());
 			$smarty->assign('ab2',$antibotlinks->show_link());
@@ -221,8 +204,7 @@ if( $anti_bot && ( ($faucet_steps==2 && isset($_POST['step2']))  || $faucet_step
 			$smarty->assign('ab1',$antibotlinks->show_link());
 			$smarty->assign('ab2',$antibotlinks->show_link());
 			$smarty->assign('ab3',$antibotlinks->show_link());	
-			$smarty->assign('ab4',$antibotlinks->show_link());	
-			
+			$smarty->assign('ab4',$antibotlinks->show_link());				
 		break;
 		case 5:
 			$smarty->assign('ab1',$antibotlinks->show_link());
