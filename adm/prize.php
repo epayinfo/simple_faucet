@@ -172,6 +172,36 @@ END;
 		Remember to apply new prizes after change to take effect.	
 	</Div>
 
+<?php if($currency==6){	?>
+
+
+
+	<Div class="alert alert-success">
+		<h3 style="padding: 0; margin: 0">Note</h3> Prizes must be in <strong>Gwei</strong> format.<br>
+		<a href="http://ether.fund/tool/converter" target="_blank"> Converter</a><br>
+For e.g. 100 Gwei is 0.0000001 ETH
+	</Div>
+
+
+<?php } ?>
+
+
+<?php if($currency==4){	?>
+
+
+
+	<Div class="alert alert-success">
+		<h3 style="padding: 0; margin: 0">Note</h3> Prizes must be in full coin format.<br>
+		for e.g 1 Doge, 2 Doge, 5 Doge
+
+	</Div>
+
+
+<?php } ?>
+
+
+
+
 
 
 
