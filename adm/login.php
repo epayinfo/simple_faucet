@@ -6,17 +6,14 @@ if(isset($_POST['login']) ){
 		$_SESSION['admin_loged']=true;
 		header('Location: index.php');
 		die();
-	}else{
-		header('Location: login.php?error=1');
-		die();
-	}
-}else{
+	}else $error = true;
+}
  ?>
 <form action="" method="post"> 
 	<Div class="col-md-6 col-md-push-3">  
 		<?php if(isset($_GET ['out'])){ ?>
 			<div class="row"><div class="alert alert-success">Logout was successful</div></div>
-		<?php }else if(isset($_GET['error'])){ ?><br><br>
+		<?php }else if(isset($error)){ ?><br><br>
 			<div class="row"><div class="alert alert-danger">Login failed</div></div>
 		<?php } ?> 
 	
@@ -32,4 +29,4 @@ if(isset($_POST['login']) ){
 		</div>
 	</Div>
 </form>               
-<?php }require_once('footer.php'); ?>
+<?php require_once('footer.php'); ?>

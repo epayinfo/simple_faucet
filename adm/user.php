@@ -1,6 +1,6 @@
 <?php
 require_once "header.php";
-$db2=new DbConnector;
+
 if(isset($_GET['a'])&&$_GET['a']=='delete'){
 	$id=$_GET['id'];
 	$db->query("delete from tbl_user where user_id='$id'");
