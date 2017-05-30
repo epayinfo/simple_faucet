@@ -18,12 +18,8 @@ $ads_3=file_get_contents('ads/ad3.php');
 $ads_main_bottom=file_get_contents('ads/bottom.php');
 
 $step=1;
-$epay_err=false;
-$captcha=false;
-$anb=false;
 $timer=false;
 $succ=false;
-$nobtc=false;
 
 function create_user($wallet,$reffer_id=NULL){ 
 	global $db;
@@ -71,7 +67,7 @@ function User_id($wallet){
 function check_wallet(){
 	global $nobtc;			
 	if($_POST['wallet']==''){ 
-		$nobtc=true;
+		$error="No Bitcoin address or ePay username found was entered!";
 		return false;
 	}else{
 		$_SESSION['user']['wallet']=trim($_POST['wallet']);
@@ -120,26 +116,22 @@ if(isset($_POST['with'])){
 							$db2->queryres("select wallet from tbl_user where user_id='".$_SESSION['user']['refid']."'");
 							$clinet->send( $db2->res['wallet'],$refearn,'Referral earnings.',NULL,2 );						
 						}
-					}else{
-						$epay_err=true;
-						switch ($response['status']) {
-							case -2: $msg = 'API INVALID'; break;
-							case -3: $msg = 'INSUFFICIENT BALANCE, try again later'; break;
-							case -4: $msg = 'NOT ENOUGH PARAMETERS'; break;
-							case -5: $msg = 'ERROR IN TIMER, try again later'; break;
-							case -6: $msg = 'SERVER IP ADDRESS NOT AUTHORIZED'; break;
-							case -7: $msg = 'PROXY DETECTED'; break;
-							case -8: $msg = 'User country is blocked'; break;
-							case -9: $msg = 'Budget reached and transaction has been canceled'; break;
-							case -10: $msg = 'Daily budget reached, try again later'; break;
-							case -11: $msg = '	time-frame limit reached, try again later'; break;
-							case -13: $msg = "Per user's daily budget reached"; break;
-							case -100: $msg = 'Faucet owner please contact ePay.info As soon as possible'; break;
-						}
-						$epay_err_msg = $msg;
+					}else switch ($response['status']) {
+							case -2: $error = 'API INVALID'; break;
+							case -3: $error = 'INSUFFICIENT BALANCE, try again later'; break;
+							case -4: $error = 'NOT ENOUGH PARAMETERS'; break;
+							case -5: $error = 'ERROR IN TIMER, try again later'; break;
+							case -6: $error = 'SERVER IP ADDRESS NOT AUTHORIZED'; break;
+							case -7: $error = 'PROXY DETECTED'; break;
+							case -8: $error = 'User country is blocked'; break;
+							case -9: $error = 'Budget reached and transaction has been canceled'; break;
+							case -10: $error = 'Daily budget reached, try again later'; break;
+							case -11: $error = '	time-frame limit reached, try again later'; break;
+							case -13: $error = "Per user's daily budget reached"; break;
+							case -100: $error = 'Faucet owner please contact ePay.info As soon as possible'; break;
 					}					
-				}else $captcha=true;
-			}else $anb=true;
+				}else $error="That CAPTCHA was incorrect. Try again!";
+			}else $error="The AntiBot was incorrect. Try again!";
 		}
 	}
 }elseif($faucet_steps==2 && isset($_POST['step2']) && check_wallet())$step = 2;
