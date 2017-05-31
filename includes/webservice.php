@@ -19,6 +19,7 @@ class ePay {
 	}
 
 	public function __exec( $method, $params = array() ) {
+		global $disable_curl;
 		$url = $this->webservice . $method;
 		if ( $disable_curl ) {
 			$response = $this->__execPHP( $url, $params );

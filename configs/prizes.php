@@ -1,3 +1,4 @@
 <?php
-$rewards='100*1,200*1,';
+$rewards=array(100=>1,200=>1,);
+$totalMultiplier=2;
 ?>
