@@ -9,17 +9,10 @@ if (isset($_GET['r']) || isset($_GET['w']) ){
 		setcookie('w', trim($_GET['w']), time() + 60 * 60 * 24 * 30);
 }
 
-$ads_left=file_get_contents('ads/left.php');
-$ads_main_top=file_get_contents('ads/top.php');
-$ads_right=file_get_contents('ads/right.php');
-$ads_1=file_get_contents('ads/ad1.php');
-$ads_2=file_get_contents('ads/ad2.php');
-$ads_3=file_get_contents('ads/ad3.php');
-$ads_main_bottom=file_get_contents('ads/bottom.php');
+include 'configs/ads.php';
 
 $step=1;
 $timer=false;
-$succ=false;
 
 function create_user($wallet,$reffer_id=NULL){ 
 	global $db;
@@ -65,7 +58,7 @@ function User_id($wallet){
 }
 
 function check_wallet(){
-	global $nobtc;			
+	global $error;			
 	if($_POST['wallet']==''){ 
 		$error="No Bitcoin address or ePay username found was entered!";
 		return false;
@@ -149,7 +142,6 @@ if($db->rownum()){
 
 $token_id = $csrf->get_token_id();
 $token = $csrf->get_token();
-$bwait_time = $bwait;
 
 if(isset($_SESSION['user']['wallet']))$wll=$_SESSION['user']['wallet'];
 elseif(isset($_GET['w']))$wll=$_GET['w'];
@@ -162,13 +154,13 @@ $prize_min = $db->res['prize'];
 $db->queryres("select prize from tbl_prize order by prize desc limit 1 ");
 $prize_max = $db->res['prize'];
 $year = date('Y',$now);
-$currency = currency($currency);
+$currency_name = $currencies[$currency];
 $clinet=new ePay($apicode);
 $blc=$clinet->getBalance();
 if($blc>=0){	
 	if($currency==4)
 		$blc=convertToBTCFromSatoshi($blc);
-	$faucet_balance = $blc.' '.currency($currency);		
+	$faucet_balance = $blc.' '.$currency_name;		
 }else{
 	$faucet_balance = 'API NOT VALID';		
 }
@@ -190,6 +182,10 @@ if(( ($faucet_steps==2 && $step == 2)  || $faucet_steps==1 )){
 			$ab5 = $antibotlinks->show_link();
 	}
 }else $anti_bot = 0;
+
+if(isset($_SESSION['adi']))$_SESSION['adi']++;
+else $_SESSION['adi'] = 0; //ad index
+$adi = $_SESSION['adi'];
 
 include 'templates/index.php';
 ?>

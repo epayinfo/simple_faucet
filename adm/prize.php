@@ -131,7 +131,7 @@ while($res=$db->fetchArray()){
 	</table>
 	<Div class="well">
 		<form action="" method="post">
-			<div class="form-group"> <label for="exampleInputEmail1">Prize In <?php echo currency($currency);?></label> <input type="number" class="form-control" name="prize"> </div> <button type="submit" name="new_price" class="btn btn-success col-md-3 col-md-push-4">Add</button>
+			<div class="form-group"> <label for="exampleInputEmail1">Prize In <?php echo $currencies[$currency];?></label> <input type="number" class="form-control" name="prize"> </div> <button type="submit" name="new_price" class="btn btn-success col-md-3 col-md-push-4">Add</button>
 			<div class="clearfix"></div>
 		</form>
 	</Div>

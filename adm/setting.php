@@ -50,13 +50,13 @@ $content = <<<END
 \$anti_bot=$anti_bot;
 
 END;
-		$fp = fopen('../configs/configs.php',"w");
-		fwrite($fp,$content);
-		fclose($fp);
+	$fp = fopen('../configs/configs.php',"w");
+	fwrite($fp,$content);
+	fclose($fp);
 
-		$fp = fopen('../templates/style/javascript/analytic.js',"w");
-		fwrite($fp,$_POST['analytic']);
-		fclose($fp);
+	$fp = fopen('../templates/style/javascript/analytic.js',"w");
+	fwrite($fp,$_POST['analytic']);
+	fclose($fp);
 }
 ?>
 <style>
